@@ -48,3 +48,10 @@ Includes an AI-powered cake design assistant.
   - Decorations
   - Suggested cake message
 - Auto-fills customizer fields
+
+## Tech Stack
+
+### Frontend
+- React (Vite + TypeScript)
+- React Router
+- CSS
