@@ -55,3 +55,18 @@ Includes an AI-powered cake design assistant.
 - React (Vite + TypeScript)
 - React Router
 - CSS
+
+### Backend
+
+Spring Boot REST API
+
+- GET /api/products
+- GET /api/products/{id}
+- POST /api/orders
+
+Uses:
+- Spring Boot
+- Spring Data JPA
+- PostgreSQL (Docker)
+- Validation
+- Global exception handling
