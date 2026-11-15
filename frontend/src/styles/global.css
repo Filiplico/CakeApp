@@ -752,47 +752,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
   margin-bottom: 2rem;
 }
 
-/* ================================================================
-   CUSTOM ORDER PAGE
-   ================================================================ */
-.custom-order-page {
-  min-height: 100vh;
-  background: var(--off-white);
-}
-.custom-order-content { padding: 6rem 0 8rem; }
-
-.order-placeholder {
-  max-width: 640px;
-  margin: 0 auto;
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  padding: 4rem 3.5rem;
-  text-align: center;
-}
-.order-placeholder__icon {
-  width: 56px; height: 56px;
-  border: 1px solid var(--gray-200);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 2rem;
-  color: var(--gold);
-}
-.order-placeholder h2 {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--black);
-  margin-bottom: 1rem;
-}
-.order-placeholder p {
-  font-size: 0.9375rem;
-  color: var(--gray-600);
-  line-height: 1.8;
-  margin-bottom: 2rem;
-}
+/* Custom order page styles live in custom-order.css */
 
 /* ================================================================
    FOOTER

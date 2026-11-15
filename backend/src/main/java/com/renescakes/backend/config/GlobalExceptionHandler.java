@@ -1,5 +1,6 @@
 package com.renescakes.backend.config;
 
+import com.renescakes.backend.exception.CakeArtException;
 import com.renescakes.backend.exception.NotFoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,13 @@ public class GlobalExceptionHandler {
         body.put("errors", fieldErrors);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
+    @ExceptionHandler(CakeArtException.class)
+    public ResponseEntity<Map<String, Object>> handleCakeArtException(CakeArtException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+        return ResponseEntity.status(ex.getStatus()).body(body);
     }
 
     @ExceptionHandler(NotFoundException.class)

@@ -35,7 +35,7 @@ exception/    NotFoundException
 | `/cakes` | Cakes |
 | `/cakes/:id` | CakeDetails |
 | `/contact` | Contact |
-| `/custom-order` | CustomOrder |
+| `/custom-order` | CustomOrder — 3D cake builder (three.js scene in [frontend/src/cake/](frontend/src/cake/)) |
 
 ### Key data gap
 
@@ -48,6 +48,7 @@ The frontend currently reads from a static mock array in [frontend/src/data/cake
 | GET | `/api/products` | List all products |
 | GET | `/api/products/{id}` | Get product by id |
 | POST | `/api/orders` | Create an order |
+| POST | `/api/ai/cake-art` | AI cake designer: `{prompt, frostingColor}` → `{svg}` drawn on the 3D cake. Needs `ANTHROPIC_API_KEY` in the backend's environment |
 
 CORS is configured in [WebConfig.java](backend/src/main/java/com/renescakes/backend/config/WebConfig.java) to allow `http://localhost:5173`.
 
