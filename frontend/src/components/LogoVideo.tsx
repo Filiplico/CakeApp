@@ -1,5 +1,9 @@
 import { useRef, useEffect } from 'react'
 
+/**
+ * Plays the logo animation on a canvas, turning the video's black background transparent
+ * so the logo sits directly on the page.
+ */
 export default function LogoVideo({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const videoRef  = useRef<HTMLVideoElement>(null)
@@ -21,6 +25,7 @@ export default function LogoVideo({ className }: { className?: string }) {
       }
     }
 
+    // Uses each pixel's brightness as its opacity, so black becomes fully transparent.
     const removeBlack = () => {
       const { width: w, height: h } = canvas
       const frame = ctx.getImageData(0, 0, w, h)
@@ -42,14 +47,23 @@ export default function LogoVideo({ className }: { className?: string }) {
       if (!video.paused && !video.ended) rafId = requestAnimationFrame(paint)
     }
 
-    video.addEventListener('loadedmetadata', syncSize)
-    video.addEventListener('play',           () => { rafId = requestAnimationFrame(paint) })
-    video.addEventListener('ended',          drawFrame)
+    const onPlay = () => {
+      rafId = requestAnimationFrame(paint)
+    }
 
-    if (!video.paused) rafId = requestAnimationFrame(paint)
+    video.addEventListener('loadedmetadata', syncSize)
+    video.addEventListener('play', onPlay)
+    video.addEventListener('ended', drawFrame)
+
+    if (!video.paused) onPlay()
     else video.play().catch(() => {})
 
-    return () => cancelAnimationFrame(rafId)
+    return () => {
+      cancelAnimationFrame(rafId)
+      video.removeEventListener('loadedmetadata', syncSize)
+      video.removeEventListener('play', onPlay)
+      video.removeEventListener('ended', drawFrame)
+    }
   }, [])
 
   return (

@@ -1,7 +1,7 @@
 import { useFadeIn } from '../hooks/useFadeIn'
 
 export default function Contact() {
-  const contentRef = useFadeIn<HTMLElement>()
+  const contentRef = useFadeIn()
 
   return (
     <main className="contact-page">

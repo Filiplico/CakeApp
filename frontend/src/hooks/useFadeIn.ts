@@ -1,23 +1,22 @@
-import { useEffect, useRef } from 'react'
+import { useCallback } from 'react'
 
-export function useFadeIn<T extends HTMLElement = HTMLElement>() {
-  const ref = useRef<T>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
+/**
+ * Fades an element in the first time it scrolls into view, by adding the `visible` class.
+ * Returns a callback ref, so it also works for elements that appear after the first render.
+ */
+export function useFadeIn() {
+  return useCallback((element: HTMLElement | null) => {
+    if (!element) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add('visible')
+          element.classList.add('visible')
           observer.disconnect()
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.12 },
     )
-    observer.observe(el)
+    observer.observe(element)
     return () => observer.disconnect()
   }, [])
-
-  return ref
 }

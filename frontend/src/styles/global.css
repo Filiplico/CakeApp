@@ -589,8 +589,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 /* ================================================================
    CAKES PAGE
    ================================================================ */
-.cakes-page { }
-
 .cakes-grid-section {
   padding: 5rem 0 8rem;
   background: var(--off-white);
@@ -679,6 +677,30 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
   color: var(--cream);
   margin-bottom: 3rem;
 }
+.cake-details__cta { align-self: flex-start; }
+
+/* Loading and not-found states */
+.cake-details-message {
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+.cake-details-message h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--white);
+}
+.cake-details-message p {
+  color: var(--gray-400);
+  max-width: 36ch;
+  line-height: 1.8;
+}
+
 .cake-details__divider {
   width: 40px; height: 1px;
   background: rgba(201, 168, 124, 0.35);
@@ -752,7 +774,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
   margin-bottom: 2rem;
 }
 
-/* Custom order page styles live in custom-order.css */
+/* ================================================================
+   CATALOGUE STATES (loading / error)
+   ================================================================ */
+.catalogue-status {
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--gray-600);
+  padding: 3rem 0;
+}
+
+/* Custom order page styles live in cake-builder/cake-builder.css */
 
 /* ================================================================
    FOOTER

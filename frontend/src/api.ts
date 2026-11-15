@@ -9,13 +9,12 @@ export class ApiError extends Error {
   }
 }
 
-async function post<T>(path: string, body: unknown): Promise<T> {
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
   let response: Response
   try {
     response = await fetch(`${API_URL}${path}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      ...init,
+      headers: { 'Content-Type': 'application/json', ...init?.headers },
     })
   } catch {
     throw new ApiError(0, 'We could not reach the bakery. Check your connection and try again.')
@@ -27,6 +26,33 @@ async function post<T>(path: string, body: unknown): Promise<T> {
   }
   return data as T
 }
+
+const post = <T>(path: string, body: unknown) => request<T>(path, { method: 'POST', body: JSON.stringify(body) })
+
+// ---------------------------------------------------------------- products
+
+export type ProductCategory = 'BIRTHDAY' | 'CELEBRATION' | 'WEDDING' | 'EVERYDAY' | 'KIDS' | 'CUPCAKES'
+
+export interface Product {
+  id: number
+  name: string
+  category: ProductCategory
+  /** Starting price in cents. */
+  priceFrom: number
+  imageUrl: string
+  shortDescription: string
+  fullDescription: string
+}
+
+export function getProducts(): Promise<Product[]> {
+  return request('/api/products')
+}
+
+export function getProduct(id: string): Promise<Product> {
+  return request(`/api/products/${encodeURIComponent(id)}`)
+}
+
+// ------------------------------------------------------------------ orders
 
 export interface OrderPayload {
   customerName: string
@@ -42,6 +68,8 @@ export interface OrderPayload {
 export function createOrder(payload: OrderPayload): Promise<{ id: number }> {
   return post('/api/orders', payload)
 }
+
+// ---------------------------------------------------------------------- AI
 
 /** Asks the AI designer to draw the customer's request. Resolves to SVG markup. */
 export async function generateCakeArt(prompt: string, frostingColor: string): Promise<string> {

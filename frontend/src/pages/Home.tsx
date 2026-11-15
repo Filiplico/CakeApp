@@ -1,13 +1,30 @@
 import { Link } from 'react-router-dom'
-import { cakes } from '../data/cakes'
-import CakeCard from '../components/CakeCard'
-import { useFadeIn } from '../hooks/useFadeIn'
+import CakeGrid from '../components/CakeGrid'
 import LogoVideo from '../components/LogoVideo'
+import { useFadeIn } from '../hooks/useFadeIn'
+
+const PROCESS_STEPS = [
+  {
+    n: '01',
+    title: 'Choose or Design',
+    desc: 'Pick from our curated catalog or design your dream cake in 3D — tiers, colours, toppings and flavour.',
+  },
+  {
+    n: '02',
+    title: 'We Bake',
+    desc: 'Using only the finest ingredients, each cake is made fresh to order with meticulous care.',
+  },
+  {
+    n: '03',
+    title: 'Pick Up or Deliver',
+    desc: 'Collect from our studio or arrange delivery straight to your celebration.',
+  },
+]
 
 export default function Home() {
-  const featuredRef = useFadeIn<HTMLElement>()
-  const processRef  = useFadeIn<HTMLElement>()
-  const ctaRef      = useFadeIn<HTMLElement>()
+  const featuredRef = useFadeIn()
+  const processRef = useFadeIn()
+  const ctaRef = useFadeIn()
 
   return (
     <>
@@ -58,11 +75,7 @@ export default function Home() {
             </p>
           </header>
 
-          <div className="featured-grid">
-            {cakes.map((cake) => (
-              <CakeCard key={cake.id} cake={cake} />
-            ))}
-          </div>
+          <CakeGrid className="featured-grid" limit={4} />
 
           <div className="view-all-wrap">
             <Link to="/cakes" className="btn btn-dark">View All Cakes</Link>
@@ -82,23 +95,7 @@ export default function Home() {
           </header>
 
           <div className="process-steps">
-            {[
-              {
-                n: '01',
-                title: 'Choose or Design',
-                desc: 'Pick from our curated catalog or describe your dream cake — flavour, shape, and occasion.',
-              },
-              {
-                n: '02',
-                title: 'We Bake',
-                desc: 'Using only the finest ingredients, each cake is made fresh to order with meticulous care.',
-              },
-              {
-                n: '03',
-                title: 'Pick Up or Deliver',
-                desc: 'Collect from our studio or arrange delivery straight to your celebration.',
-              },
-            ].map((step) => (
+            {PROCESS_STEPS.map((step) => (
               <div key={step.n} className="process-step">
                 <div className="process-step__number" aria-hidden>{step.n}</div>
                 <h3 className="process-step__title">{step.title}</h3>
